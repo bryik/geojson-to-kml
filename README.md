@@ -1,4 +1,4 @@
-_This is a fork of [mapbox/tokml](https://github.com/mapbox/tokml)_
+_This is a fork of [mapbox/tokml](https://github.com/mapbox/tokml)._
 
 # geojson-to-kml
 
