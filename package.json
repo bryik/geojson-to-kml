@@ -1,0 +1,30 @@
+{
+  "name": "geojson-to-kml",
+  "version": "0.0.1",
+  "description": "Converts GeoJSON into KML.",
+  "source": "index.js",
+  "main": "dist/index.js",
+  "umd:main": "dist/index.umd.js",
+  "unpkg": "dist/index.umd.js",
+  "module": "dist/index.m.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "microbundle --external=none && tap test/*.js",
+    "build": "microbundle --external=none"
+  },
+  "keywords": [
+    "geojson"
+  ],
+  "author": "Ben Pyrik <ben@wsundine.com>",
+  "license": "BSD-2-Clause",
+  "dependencies": {},
+  "devDependencies": {
+    "fuzzer": "^0.2.1",
+    "glob": "^7.1.6",
+    "microbundle": "^0.11.0",
+    "prettier": "^1.19.1",
+    "tap": "^14.10.6"
+  }
+}
