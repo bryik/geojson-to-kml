@@ -24,7 +24,7 @@
     "fuzzer": "^0.2.1",
     "glob": "^7.1.6",
     "microbundle": "^0.13.0",
-    "prettier": "^1.19.1",
+    "prettier": "^2.2.1",
     "tap": "^15.0.2"
   },
   "repository": {

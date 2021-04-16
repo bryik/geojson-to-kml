@@ -17,7 +17,7 @@ export function root(_, options) {
       )({
         type: "Feature",
         geometry: _,
-        properties: {}
+        properties: {},
       });
   }
 }
@@ -35,7 +35,7 @@ export function documentDescription(options) {
 }
 
 function feature(options, styleHashesArray) {
-  return function(_) {
+  return function (_) {
     if (!_.properties || !geometry.valid(_.geometry)) return "";
     var geometryString = geometry.any(_.geometry);
     if (!geometryString) return "";
@@ -100,13 +100,13 @@ function timestamp(_, options) {
 //
 // https://developers.google.com/kml/documentation/kmlreference#geometry
 var geometry = {
-  Point: function(_) {
+  Point: function (_) {
     return tag("Point", tag("coordinates", _.coordinates.join(",")));
   },
-  LineString: function(_) {
+  LineString: function (_) {
     return tag("LineString", tag("coordinates", linearring(_.coordinates)));
   },
-  Polygon: function(_) {
+  Polygon: function (_) {
     if (!_.coordinates.length) return "";
     var outer = _.coordinates[0],
       inner = _.coordinates.slice(1),
@@ -115,7 +115,7 @@ var geometry = {
         tag("LinearRing", tag("coordinates", linearring(outer)))
       ),
       innerRings = inner
-        .map(function(i) {
+        .map(function (i) {
           return tag(
             "innerBoundaryIs",
             tag("LinearRing", tag("coordinates", linearring(i)))
@@ -124,43 +124,43 @@ var geometry = {
         .join("");
     return tag("Polygon", outerRing + innerRings);
   },
-  MultiPoint: function(_) {
+  MultiPoint: function (_) {
     if (!_.coordinates.length) return "";
     return tag(
       "MultiGeometry",
       _.coordinates
-        .map(function(c) {
+        .map(function (c) {
           return geometry.Point({ coordinates: c });
         })
         .join("")
     );
   },
-  MultiPolygon: function(_) {
+  MultiPolygon: function (_) {
     if (!_.coordinates.length) return "";
     return tag(
       "MultiGeometry",
       _.coordinates
-        .map(function(c) {
+        .map(function (c) {
           return geometry.Polygon({ coordinates: c });
         })
         .join("")
     );
   },
-  MultiLineString: function(_) {
+  MultiLineString: function (_) {
     if (!_.coordinates.length) return "";
     return tag(
       "MultiGeometry",
       _.coordinates
-        .map(function(c) {
+        .map(function (c) {
           return geometry.LineString({ coordinates: c });
         })
         .join("")
     );
   },
-  GeometryCollection: function(_) {
+  GeometryCollection: function (_) {
     return tag("MultiGeometry", _.geometries.map(geometry.any).join(""));
   },
-  valid: function(_) {
+  valid: function (_) {
     return (
       _ &&
       _.type &&
@@ -170,38 +170,33 @@ var geometry = {
           _.geometries.every(geometry.valid)))
     );
   },
-  any: function(_) {
+  any: function (_) {
     if (geometry[_.type]) {
       return geometry[_.type](_);
     } else {
       return "";
     }
   },
-  isPoint: function(_) {
+  isPoint: function (_) {
     return _.type === "Point" || _.type === "MultiPoint";
   },
-  isPolygon: function(_) {
+  isPolygon: function (_) {
     return _.type === "Polygon" || _.type === "MultiPolygon";
   },
-  isLine: function(_) {
+  isLine: function (_) {
     return _.type === "LineString" || _.type === "MultiLineString";
-  }
+  },
 };
 
 function linearring(_) {
-  return _.map(function(cds) {
+  return _.map(function (cds) {
     return cds.join(",");
   }).join(" ");
 }
 
 // ## Data
 function extendeddata(_) {
-  return tag(
-    "ExtendedData",
-    pairs(_)
-      .map(data)
-      .join("")
-  );
+  return tag("ExtendedData", pairs(_).map(data).join(""));
 }
 
 function data(_) {
@@ -242,7 +237,7 @@ function iconSize(_) {
     ["xunits", "fraction"],
     ["yunits", "fraction"],
     ["x", 0.5],
-    ["y", 0.5]
+    ["y", 0.5],
   ]);
 }
 
@@ -255,7 +250,7 @@ function hasPolygonAndLineStyle(_) {
         "stroke-opacity": true,
         "stroke-width": true,
         fill: true,
-        "fill-opacity": true
+        "fill-opacity": true,
       }[key]
     )
       return true;
@@ -267,14 +262,14 @@ function polygonAndLineStyle(_, styleHash) {
     tag(
       "color",
       hexToKmlColor(_["stroke"], _["stroke-opacity"]) || "ff555555"
-    ) + tag("width", _["stroke-width"] === undefined ? 2 : _["stroke-width"])
+    ) + tag("width", _["stroke-width"] === undefined ? 2 : _["stroke-width"]),
   ]);
 
   var polyStyle = "";
 
   if (_["fill"] || _["fill-opacity"]) {
     polyStyle = tag("PolyStyle", [
-      tag("color", hexToKmlColor(_["fill"], _["fill-opacity"]) || "88555555")
+      tag("color", hexToKmlColor(_["fill"], _["fill-opacity"]) || "88555555"),
     ]);
   }
 

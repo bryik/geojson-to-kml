@@ -23,13 +23,13 @@ const kml = tokml(geojsonObject);
 // KML
 const kmlNameDescription = tokml(geojsonObject, {
   name: "name",
-  description: "description"
+  description: "description",
 });
 
 // name and describe the KML document as a whole
 const kmlDocumentName = tokml(geojsonObject, {
   documentName: "My List Of Markers",
-  documentDescription: "One of the many places you are not I am"
+  documentDescription: "One of the many places you are not I am",
 });
 ```
 
@@ -89,3 +89,9 @@ npm test
 ```bash
 npm run build
 ```
+
+## Rationale
+
+Why use `geojson-to-kml` instead of `toKml`? Well, `toKml` hasn't been updated in a while and installing it causes `npm` to complain about vulnerabilites.
+
+[@maphubs/tokml](https://github.com/maphubs/tokml) is another fork of `toKml` that I was not aware of when I made `geojson-to-kml`; check it out, it might be a better option!
