@@ -8,7 +8,7 @@ export default function tokml(geojson, options) {
     name: "name",
     description: "description",
     simplestyle: false,
-    timestamp: "timestamp"
+    timestamp: "timestamp",
   };
 
   return (

@@ -5,7 +5,7 @@ var test = require("tap").test,
   path = require("path"),
   tokml = require("../dist/index");
 
-test("tokml", function(t) {
+test("tokml", function (t) {
   function geq(t, name, options) {
     var expected = tokml(file(name + ".geojson"), options);
     if (process.env.UPDATE) {
@@ -42,7 +42,7 @@ test("tokml", function(t) {
     }
   }
 
-  t.test("geometry", function(tt) {
+  t.test("geometry", function (tt) {
     geq(tt, "polygon");
     geq(tt, "linestring");
     geq(tt, "multilinestring");
@@ -53,7 +53,7 @@ test("tokml", function(t) {
     tt.end();
   });
 
-  t.test("quirks", function(tt) {
+  t.test("quirks", function (tt) {
     geq(tt, "cdata");
     geq(tt, "singlefeature");
     geq(tt, "singlegeometry");
@@ -70,25 +70,25 @@ test("tokml", function(t) {
     tt.end();
   });
 
-  test("name & description", function(tt) {
+  test("name & description", function (tt) {
     geq(tt, "name_desc");
     geq(tt, "document_name_desc", {
       documentName: "Document Title",
-      documentDescription: "Document Description"
+      documentDescription: "Document Description",
     });
     tt.end();
   });
 
-  test("timestamp", function(tt) {
+  test("timestamp", function (tt) {
     geq(tt, "timestamp", {
       name: "name",
       description: "description",
-      timestamp: "moment"
+      timestamp: "moment",
     });
     tt.end();
   });
 
-  test("simplestyle spec", function(tt) {
+  test("simplestyle spec", function (tt) {
     var options = { simplestyle: true };
 
     geq(tt, "simplestyle_optionnotset");
@@ -116,7 +116,7 @@ test("tokml", function(t) {
     tt.end();
   });
 
-  test("simplestyle hex to kml color conversion", function(tt) {
+  test("simplestyle hex to kml color conversion", function (tt) {
     testColor(tt, "#ff5500", 1, "ff0055ff");
     testColor(tt, "#0000ff", 1, "ffff0000");
     testColor(tt, "#00ff00", 1, "ff00ff00");
@@ -145,9 +145,9 @@ test("tokml", function(t) {
     tt.end();
   });
 
-  test("fuzz", function(tt) {
+  test("fuzz", function (tt) {
     fuzzer.seed(0);
-    glob.sync(__dirname + "/data/*.geojson").forEach(function(gj) {
+    glob.sync(__dirname + "/data/*.geojson").forEach(function (gj) {
       var generator = fuzzer.mutate.object(JSON.parse(fs.readFileSync(gj)));
       for (var i = 0; i < 10; i++) {
         var gen = generator();

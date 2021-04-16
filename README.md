@@ -23,13 +23,13 @@ const kml = tokml(geojsonObject);
 // KML
 const kmlNameDescription = tokml(geojsonObject, {
   name: "name",
-  description: "description"
+  description: "description",
 });
 
 // name and describe the KML document as a whole
 const kmlDocumentName = tokml(geojsonObject, {
   documentName: "My List Of Markers",
-  documentDescription: "One of the many places you are not I am"
+  documentDescription: "One of the many places you are not I am",
 });
 ```
 
